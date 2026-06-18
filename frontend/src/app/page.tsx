@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-white overflow-hidden">
@@ -58,12 +60,12 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col gap-4 w-full max-w-[320px]">
-            <button className="btn-primary w-full py-4 rounded-2xl bg-[#4C8CE4] text-white font-bold text-lg uppercase tracking-wider">
+            <Link href="/register" className="btn-primary flex justify-center items-center w-full py-4 rounded-2xl bg-[#4C8CE4] text-white font-bold text-lg uppercase tracking-wider">
               Get Started
-            </button>
-            <button className="btn-secondary w-full py-4 rounded-2xl bg-white text-[#4C8CE4] font-bold text-lg uppercase tracking-wider">
+            </Link>
+            <Link href="/login" className="btn-secondary flex justify-center items-center w-full py-4 rounded-2xl bg-white text-[#4C8CE4] font-bold text-lg uppercase tracking-wider">
               I already have an account
-            </button>
+            </Link>
           </div>
         </div>
 
