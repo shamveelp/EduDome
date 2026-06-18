@@ -21,6 +21,7 @@ export class RegisterUseCase {
       email: dto.email,
       password: hashedPassword,
       name: dto.name,
+      role: dto.role || 'USER',
     });
 
     const { password, ...result } = user;

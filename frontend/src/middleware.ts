@@ -1,34 +1,65 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// Routes that require authentication
-const PROTECTED_ROUTES = ['/dashboard'];
-
-// Routes that should redirect authenticated users away (e.g., don't go back to login if already logged in)
-const AUTH_ROUTES = ['/login', '/register'];
+function getRoleFromToken(token: string): string | null {
+  try {
+    const payloadBase64 = token.split('.')[1];
+    if (!payloadBase64) return null;
+    const decodedJson = atob(payloadBase64);
+    const decoded = JSON.parse(decodedJson);
+    return decoded.role || null;
+  } catch (e) {
+    return null;
+  }
+}
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-
-  // Read the token from cookies (we'll store it in a cookie from the login page)
   const token = request.cookies.get('accessToken')?.value;
+  const role = token ? getRoleFromToken(token) : null;
 
-  const isProtectedRoute = PROTECTED_ROUTES.some((route) =>
-    pathname.startsWith(route),
-  );
-
-  const isAuthRoute = AUTH_ROUTES.some((route) => pathname.startsWith(route));
-
-  // If accessing a protected route without a token → redirect to login
-  if (isProtectedRoute && !token) {
-    const loginUrl = new URL('/login', request.url);
-    loginUrl.searchParams.set('redirectTo', pathname);
-    return NextResponse.redirect(loginUrl);
+  // 1. Unauthenticated users trying to access protected routes -> Redirect to login
+  if (!token) {
+    if (pathname.startsWith('/institute/dashboard')) {
+      const loginUrl = new URL('/institute/login', request.url);
+      loginUrl.searchParams.set('redirectTo', pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+    if (pathname.startsWith('/dashboard')) {
+      const loginUrl = new URL('/login', request.url);
+      loginUrl.searchParams.set('redirectTo', pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+    return NextResponse.next();
   }
 
-  // If accessing login/register or the home page with a token → redirect to dashboard
-  if ((isAuthRoute || pathname === '/') && token) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+  // If token exists, handle role-based redirection
+
+  // 2. AGENCY routing logic
+  if (role === 'AGENCY') {
+    // If accessing USER dashboard, landing page, or any auth pages -> redirect to institute dashboard
+    const isUserDashboard = pathname.startsWith('/dashboard') && !pathname.startsWith('/institute/dashboard');
+    const isInstituteAuth = pathname === '/institute/login' || pathname === '/institute/register';
+    const isUserAuth = pathname === '/login' || pathname === '/register';
+    const isLandingPages = pathname === '/' || pathname === '/institute';
+
+    if (isUserDashboard || isInstituteAuth || isUserAuth || isLandingPages) {
+      return NextResponse.redirect(new URL('/institute/dashboard', request.url));
+    }
+    return NextResponse.next();
+  }
+
+  // 3. USER routing logic (default)
+  if (role === 'USER' || !role) {
+    const isInstituteDashboard = pathname.startsWith('/institute/dashboard');
+    const isInstituteAuth = pathname === '/institute/login' || pathname === '/institute/register';
+    const isUserAuth = pathname === '/login' || pathname === '/register';
+    const isLandingPages = pathname === '/' || pathname === '/institute';
+
+    if (isInstituteDashboard || isInstituteAuth || isUserAuth || isLandingPages) {
+      return NextResponse.redirect(new URL('/dashboard', request.url));
+    }
+    return NextResponse.next();
   }
 
   return NextResponse.next();

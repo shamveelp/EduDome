@@ -19,6 +19,7 @@ export class AuthRepository implements IAuthRepository {
         email: data.email,
         password: data.password as string,
         name: data.name,
+        role: data.role,
       },
     });
     return new UserEntity(user);
