@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -231,64 +232,81 @@ export default function DashboardPage() {
       </main>
 
       {/* Right Sidebar */}
-      <aside className="w-80 h-full bg-white border-l border-slate-100 flex flex-col flex-shrink-0 overflow-y-auto hidden xl:flex">
-        <div className="p-8">
+      <aside className="w-80 h-full bg-white border-l border-slate-100 flex flex-col flex-shrink-0 overflow-hidden hidden xl:flex">
+        <div className="p-6">
           {/* Profile header */}
-          <div className="flex justify-between items-center mb-10">
+          <div className="flex justify-between items-center mb-6">
             <h2 className="text-lg font-bold text-[#1e293b] font-outfit">Your Profile</h2>
             <button className="text-slate-400 hover:text-slate-600"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
           </div>
 
-          <div className="flex flex-col items-center text-center mb-10">
-            <div className="w-[104px] h-[104px] rounded-full border-[3px] border-blue-50 p-1 mb-5 relative flex items-center justify-center">
+          <div className="flex flex-col items-center text-center mb-6">
+            <div className="w-[72px] h-[72px] rounded-full border-[3px] border-blue-50 p-1 mb-4 relative flex items-center justify-center">
               <div className="w-full h-full rounded-full bg-slate-100 overflow-hidden flex items-center justify-center">
-                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" strokeWidth="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" strokeWidth="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               </div>
               {/* Arc decorative progress indicator */}
-              <svg className="absolute top-0 left-0 w-full h-full text-[#4C8CE4] -rotate-90" viewBox="0 0 104 104" fill="none">
-                <circle cx="52" cy="52" r="50" stroke="currentColor" strokeWidth="4" strokeDasharray="200 314" strokeLinecap="round" />
+              <svg className="absolute top-0 left-0 w-full h-full text-[#4C8CE4] -rotate-90" viewBox="0 0 72 72" fill="none">
+                <circle cx="36" cy="36" r="34" stroke="currentColor" strokeWidth="3" strokeDasharray="140 213" strokeLinecap="round" />
               </svg>
             </div>
             <h3 className="text-xl font-bold text-[#1e293b] font-outfit mb-2">Guten Morgen, User</h3>
             <p className="text-xs text-slate-500 max-w-[200px] leading-relaxed">Continue your journey and achieve your target</p>
           </div>
 
-          <div className="flex justify-center gap-4 mb-12">
+          <div className="flex justify-center gap-4 mb-6">
              {[
-               <svg key="1" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>,
-               <svg key="2" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>,
-               <svg key="3" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+               <svg key="1" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>,
+               <svg key="2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>,
+               <svg key="3" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
              ].map((icon, i) => (
-               <button key={i} className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-[#4C8CE4] hover:border-[#4C8CE4] transition-all shadow-sm hover:shadow">
+               <button key={i} className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-[#4C8CE4] hover:border-[#4C8CE4] transition-all shadow-sm hover:shadow">
                  {icon}
                </button>
              ))}
           </div>
 
-          {/* Activity Chart Mock */}
-          <div className="mb-12">
-            <div className="flex items-end justify-between gap-3 h-28 border-b border-slate-100 pb-3">
-              {[30, 50, 80, 40, 100, 70, 60].map((h, i) => (
-                 <div key={i} className="w-full flex flex-col justify-end group">
-                    <div className="w-full bg-[#4C8CE4] rounded-t-[4px] transition-all duration-300 group-hover:opacity-100" style={{ height: `${h}%`, opacity: h === 100 ? 1 : 0.4 }}></div>
-                 </div>
-              ))}
-            </div>
-            <div className="flex justify-between mt-2 px-1">
-              {['M','T','W','T','F','S','S'].map((day, i) => (
-                 <span key={i} className="text-[10px] font-bold text-slate-400">{day}</span>
-              ))}
-            </div>
+          {/* Activity Chart */}
+          <div className="mb-6 h-32 w-full border-b border-slate-100 pb-2">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart 
+                data={[
+                  { name: 'M', value: 30 },
+                  { name: 'T', value: 50 },
+                  { name: 'W', value: 80 },
+                  { name: 'T', value: 40 },
+                  { name: 'F', value: 100 },
+                  { name: 'S', value: 70 },
+                  { name: 'S', value: 60 },
+                ]} 
+                margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
+              >
+                <Tooltip 
+                  cursor={{fill: 'transparent'}}
+                  contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff', fontSize: '10px', fontWeight: 'bold', padding: '4px 8px' }}
+                  itemStyle={{ color: '#fff' }}
+                  formatter={(value: any) => [`${value} mins`, '']}
+                  labelStyle={{ display: 'none' }}
+                />
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#94a3b8', fontWeight: 'bold' }} dy={10} />
+                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                  { [30, 50, 80, 40, 100, 70, 60].map((val, index) => (
+                    <Cell key={`cell-${index}`} fill="#4C8CE4" fillOpacity={val === 100 ? 1 : 0.4} style={{ transition: 'all 0.3s ease', cursor: 'pointer' }} />
+                  )) }
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
           </div>
+
 
           {/* Your Mentor List */}
           <div>
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-4">
               <h3 className="font-bold text-[#1e293b] font-outfit text-sm">Your Mentor</h3>
               <button className="w-7 h-7 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:text-[#4C8CE4] hover:border-[#4C8CE4] text-lg leading-none transition-colors shadow-sm pb-0.5">+</button>
             </div>
-            <div className="space-y-5">
-              {[1,2,3,4].map(i => (
+            <div className="space-y-3">
+              {[1,2,3].map(i => (
                 <div key={i} className="flex items-center justify-between group">
                    <div className="flex items-center gap-3">
                      <div className="w-10 h-10 rounded-full bg-slate-100 overflow-hidden flex items-center justify-center border border-slate-200">
@@ -303,7 +321,7 @@ export default function DashboardPage() {
                 </div>
               ))}
             </div>
-            <button className="w-full mt-8 bg-blue-50 text-[#4C8CE4] text-xs font-bold py-3.5 rounded-2xl hover:bg-[#4C8CE4] hover:text-white transition-all uppercase tracking-wider">See All Mentors</button>
+            <button className="w-full mt-4 bg-blue-50 text-[#4C8CE4] text-xs font-bold py-3.5 rounded-2xl hover:bg-[#4C8CE4] hover:text-white transition-all uppercase tracking-wider">See All Mentors</button>
           </div>
         </div>
       </aside>
