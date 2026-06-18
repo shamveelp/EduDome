@@ -7,7 +7,7 @@ export default function Home() {
           <div className="w-10 h-10 primary-gradient rounded-xl flex items-center justify-center text-white font-bold text-2xl shadow-lg transition-transform group-hover:scale-110">
             E
           </div>
-          <span className="text-2xl font-bold tracking-tight text-[#1e293b] font-outfit">Ebenex</span>
+          <span className="text-2xl font-bold tracking-tight text-[#1e293b] font-outfit">EduDome</span>
         </div>
         
         <div className="flex items-center gap-2 text-slate-500 font-medium hover:text-[#4C8CE4] transition-colors cursor-pointer text-sm md:text-base">
@@ -53,7 +53,7 @@ export default function Home() {
               <span className="text-[#4C8CE4]">5 minutes</span> a day.
             </h1>
             <p className="text-lg md:text-xl text-slate-500 font-medium max-w-md">
-              Ebenex makes learning effortless, fun, and completely tailored to you.
+              EduDome makes learning effortless, fun, and completely tailored to you.
             </p>
           </div>
 

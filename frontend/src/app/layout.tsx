@@ -8,8 +8,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Ebenex | Master German Efficiently",
-  description: "Learn German in just 5 minutes a day with Ebenex. The most refined and effective way to master the language of thinkers and explorers.",
+  title: "EduDome | Master German Efficiently",
+  description: "Learn German in just 5 minutes a day with EduDome. The most refined and effective way to master the language of thinkers and explorers.",
 };
 
 export default function RootLayout({
