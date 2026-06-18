@@ -80,3 +80,28 @@ body {
 .btn-secondary:active {
   box-shadow: 0 0px 0px #e2e8f0;
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(76, 140, 228, 0.4);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(76, 140, 228, 0.8);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(76, 140, 228, 0.4) transparent;
+}

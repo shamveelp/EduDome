@@ -26,8 +26,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // If accessing login/register with a token → redirect to dashboard
-  if (isAuthRoute && token) {
+  // If accessing login/register or the home page with a token → redirect to dashboard
+  if ((isAuthRoute || pathname === '/') && token) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
