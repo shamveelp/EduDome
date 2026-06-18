@@ -177,20 +177,40 @@ Used on: quote glass card — gives a subtle levitation effect.
 
 ## 📐 Layout Conventions
 
+### The Golden Rule: `max-w-7xl mx-auto px-6`
+Every page in EduDome uses this exact container. This creates the consistent breathing room (left/right gap) you see on the home page. **Never use a wider or narrower container.**
+
+### Shared Components
+| Component | File | Purpose |
+|---|---|---|
+| `<Navbar />` | `src/components/Navbar.tsx` | Site-wide header with logo and nav actions |
+| `<PageContainer />` | `src/components/PageContainer.tsx` | Wraps page content in `max-w-7xl mx-auto px-6` |
+
+### Usage Pattern for Every Page
+```tsx
+<div className="min-h-screen flex flex-col bg-slate-50">
+  <Navbar />
+  <main className="flex-1">
+    <PageContainer className="py-12">
+      {/* page content */}
+    </PageContainer>
+  </main>
+</div>
+```
+
 - **Max width:** `max-w-7xl mx-auto`
-- **Horizontal padding:** `px-6` (mobile), consistent across all sections
-- **Vertical spacing:** `py-6` (header), `py-10` (footer), `gap-12 lg:gap-24` (hero columns)
+- **Horizontal padding:** `px-6` — consistent on all screen sizes via `PageContainer`
+- **Vertical spacing:** `py-12` for main content, `py-5` for navbar
 - **Responsive split layout:** `flex flex-col md:flex-row` for hero
 - **Border radius scale:**
   - Inputs: `rounded-xl`
   - Auth card: `rounded-2xl`
   - Buttons: `rounded-2xl`
-  - Glass quote card: `rounded-[40px]` (extra large for editorial feel)
+  - Glass quote card: `rounded-[40px]`
   - Logo badge: `rounded-xl`
 - **Shadows:**
-  - Cards: `shadow-sm`
-  - Logo badge: `shadow-lg`
-  - Glass card: via `.glass-card` class
+  - Cards: `shadow-sm`, on hover `shadow-md`
+  - Logo badge: `shadow`
 
 ---
 
